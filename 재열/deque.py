@@ -1,11 +1,10 @@
-from sys import stdin
+import sys
+n,k = map(int, sys.stdin.readline().split())
+N = [x for x in range(1,n+1)]
+answer = []
+num = 0
+for _ in range(n):
+    num = (num + k-1)%len(N)
+    answer.append(str(N.pop(num)))
 
-n = int(input())
-
-stack = []
-for temp in map(int, stdin):
-    if not temp and stack:
-        stack.pop()
-    else:
-        stack.append(temp)
-print(sum(stack))
+print('<', ', '.join(answer), '>', sep ='')
