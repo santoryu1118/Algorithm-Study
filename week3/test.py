@@ -1,12 +1,34 @@
-#(6) - 2294 동전 2
-'''
-n가지 종류의 동전이 있다. 이 동전들을 적당히 사용해서, 그 가치의 합이 k원이 되도록 하고 싶다. 
-그러면서 동전의 개수가 최소가 되도록 하려고 한다. 각각의 동전은 몇 개라도 사용할 수 있다.
-'''
+#(7) - 1987 알파벳
 
 import sys
-from collections import deque
 
-n, k = map(int, input().split())
-coins = list(map(int, sys.stdin.readlines()))
+R, C = map(int, sys.stdin.readline().split())
+board = [list(sys.stdin.readline().strip()) for _ in range(R)]
 
+# visit = [[False]*C for _ in range(R)]
+# visit[0][0] = True
+
+trace =[board[0][0]]
+
+dx = [1, 0, -1, 0]
+dy = [0, 1, 0, -1]
+
+cnt = 1
+
+def dfs(y, x):
+    global cnt
+
+    for i in range(4):
+        newy, newx = y + dy[i], x + dx[i]
+        if 0 <= newy < R and 0 <= newx < C: 
+            if board[newy][newx] not in trace:
+                trace.append(board[newy][newx])
+                dfs(newy, newx)
+                trace.pop()
+            else:
+                cnt = max(cnt, len(trace))
+                continue
+    return
+
+dfs(0,0)
+print(cnt)
