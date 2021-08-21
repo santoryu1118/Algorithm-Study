@@ -1,34 +1,20 @@
-#(7) - 1987 알파벳
+#(10) - 2617 구슬찾기
 
 import sys
 
-R, C = map(int, sys.stdin.readline().split())
-board = [list(sys.stdin.readline().strip()) for _ in range(R)]
+N, M = map(int, sys.stdin.readline().split())
 
-# visit = [[False]*C for _ in range(R)]
-# visit[0][0] = True
+# 인덱스보다 큰 값들 저장
+bigger = [[] for _ in range(N+1)]
+# 인덱스보다 작은 값들 저장
+smaller = [[] for _ in range(N+1)]
 
-trace =[board[0][0]]
+for _ in range(M):
+    big, small = map(int, sys.stdin.readline().split())
+    bigger[small].append(big)
+    smaller[big].append(small)
 
-dx = [1, 0, -1, 0]
-dy = [0, 1, 0, -1]
+# print(f'bigger: {bigger}')
+# print(f'smaller: {smaller}')
 
-cnt = 1
-
-def dfs(y, x):
-    global cnt
-
-    for i in range(4):
-        newy, newx = y + dy[i], x + dx[i]
-        if 0 <= newy < R and 0 <= newx < C: 
-            if board[newy][newx] not in trace:
-                trace.append(board[newy][newx])
-                dfs(newy, newx)
-                trace.pop()
-            else:
-                cnt = max(cnt, len(trace))
-                continue
-    return
-
-dfs(0,0)
-print(cnt)
+ans_list = []
