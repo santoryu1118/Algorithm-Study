@@ -43,4 +43,5 @@ class FixedStack:
 
         return self.stack[self.ptr-1]
 
-
+k = FixedStack()
+k.pop()
